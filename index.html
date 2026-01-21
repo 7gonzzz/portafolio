@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cargando Portafolio...</title>
     <style>
-        body { margin: 0; background: black; color: white; display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; overflow: hidden; }
-        /* El video ocupará toda la pantalla pero estará oculto al inicio */
+        body { margin: 0; background: black; color: white; display: flex; align-items: center; justify-content: center; height: 100vh; font-family: 'Arial Black', sans-serif; overflow: hidden; }
+        
         #screamer { 
             display: none; 
             width: 100vw; 
@@ -15,8 +15,29 @@
             position: fixed; 
             top: 0; 
             left: 0; 
+            z-index: 1;
         }
-        button { padding: 15px 30px; font-size: 20px; cursor: pointer; border: none; background: #333; color: white; border-radius: 5px; }
+
+        /* Estilo para el mensaje de Troll */
+        #mensajeTroll {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: black; /* Fondo negro para que resalte el texto */
+            color: #00ff00; /* Verde tipo hacker o rojo */
+            text-align: center;
+            font-size: 100px;
+            z-index: 2; /* Por encima del video */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        button { padding: 15px 30px; font-size: 20px; cursor: pointer; border: none; background: #333; color: white; border-radius: 5px; z-index: 3; }
     </style>
 </head>
 <body>
@@ -27,24 +48,29 @@
 
     <video id="screamer" src="portafolio.mp4"></video>
 
+    <div id="mensajeTroll" style="display: none;">
+        <h1>¡TROLLEADO! 🤡</h1>
+        <p style="font-size: 30px;">https://www.twitch.tv/pabl0pe</p>
+    </div>
+
     <script>
         function comenzar() {
             document.getElementById('loader').style.display = 'none';
+            var video = document.getElementById('screamer');
+            var mensaje = document.getElementById('mensajeTroll');
+            
+            // 1. Mostrar y reproducir el video instantáneamente
+            video.style.display = 'block'; 
+            video.play(); 
+            
+            if (video.requestFullscreen) { video.requestFullscreen(); }
 
-            // Espera de 2 segundos (puedes cambiarlo a 0 para que sea instantáneo)
+            // 2. Después de 3 segundos (3000 milisegundos), mostrar el mensaje
             setTimeout(function() {
-                var video = document.getElementById('screamer');
-                
-                video.style.display = 'block'; // Mostrar el video
-                video.play(); // Reproducir
-                
-                // Intentar poner en pantalla completa
-                if (video.requestFullscreen) {
-                    video.requestFullscreen();
-                } else if (video.webkitRequestFullscreen) { /* Safari */
-                    video.webkitRequestFullscreen();
-                }
-            }, 2000); 
+                video.pause(); // Pausa el video del susto
+                video.style.display = 'none'; // Esconde el video
+                mensaje.style.display = 'flex'; // Muestra el mensaje de troll
+            }, 3000); 
         }
     </script>
 </body>
