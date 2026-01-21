@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargando contenido...</title>
+    <style>
+        body { margin: 0; background: black; color: white; display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; overflow: hidden; }
+        #screamer { display: none; width: 100vw; height: 100vh; object-fit: cover; position: fixed; top: 0; left: 0; }
+        button { padding: 15px 30px; font-size: 20px; cursor: pointer; border: none; background: #333; color: white; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <button onclick="comenzar()">Cargar Contenido Multimedia</button>
+    </div>
+
+    <img id="screamer" src="LINK_DE_TU_IMAGEN_AQUI" alt="scary">
+
+    <audio id="audio" src="LINK_DE_TU_AUDIO_AQUI"></audio>
+
+    <script>
+        function comenzar() {
+            // Ocultar el botón
+            document.getElementById('loader').style.display = 'none';
+
+            // Esperar 2 segundos antes del susto
+            setTimeout(function() {
+                var img = document.getElementById('screamer');
+                var audio = document.getElementById('audio');
+
+                img.style.display = 'block'; // Mostrar imagen
+                audio.play(); // Reproducir sonido
+                
+                // Opcional: Poner en pantalla completa
+                document.documentElement.requestFullscreen();
+            }, 2000); 
+        }
+    </script>
+</body>
+</html>
