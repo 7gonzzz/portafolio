@@ -3,104 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Diseñador Creativo</title>
+    <title>Click Speed Test | ¿Qué tan rápido eres?</title>
     <style>
-        /* Estilos Generales */
-        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; color: #333; }
+        body { margin: 0; background: #121212; color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
         
-        /* Navegación Falsa */
-        nav { background: #2c3e50; padding: 1rem; display: flex; justify-content: space-around; color: white; }
-        nav a { color: white; text-decoration: none; font-weight: bold; opacity: 0.8; }
-
-        /* Header / Perfil */
-        header { text-align: center; padding: 50px 20px; background: white; }
-        .profile-pic { width: 120px; height: 120px; border-radius: 50%; border: 5px solid #3498db; margin-bottom: 15px; object-fit: cover; }
-        h1 { margin: 0; color: #2c3e50; }
-        p.subtitle { color: #7f8c8d; font-size: 1.1rem; }
-
-        /* Cuadrícula de Proyectos */
-        .container { max-width: 1000px; margin: auto; padding: 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
-        .card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
-        .card img { width: 100%; border-radius: 5px; height: 150px; object-fit: cover; }
-
-        /* El Botón "Trampa" */
-        .btn-trap { 
-            background: #3498db; color: white; border: none; padding: 12px 25px; 
-            font-size: 1rem; border-radius: 5px; cursor: pointer; transition: background 0.3s;
-            margin-top: 15px; font-weight: bold;
+        .test-container { background: #1e1e1e; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; width: 350px; }
+        
+        #click-area { 
+            width: 100%; height: 200px; background: #3498db; border-radius: 15px; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 24px; font-weight: bold; cursor: pointer; user-select: none;
+            transition: transform 0.1s, background 0.2s; margin: 20px 0;
         }
-        .btn-trap:hover { background: #2980b9; }
+        #click-area:active { transform: scale(0.95); background: #2980b9; }
+        
+        .stats { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 18px; }
+        .timer { color: #e74c3c; font-weight: bold; }
+        .counter { color: #2ecc71; font-weight: bold; }
 
-        /* Elementos del Screamer (Ocultos) */
+        /* Elementos del Screamer */
         #screamer { display: none; width: 100vw; height: 100vh; object-fit: cover; position: fixed; top: 0; left: 0; z-index: 9999; background: black; }
         #mensajeTroll { 
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            background: black; color: #00ff00; text-align: center; z-index: 10000;
-            flex-direction: column; align-items: center; justify-content: center; font-family: 'Arial Black';
+            background: black; color: white; text-align: center; z-index: 10000;
+            flex-direction: column; align-items: center; justify-content: center; 
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="#">Inicio</a>
-        <a href="#">Sobre mí</a>
-        <a href="#">Proyectos</a>
-        <a href="#">Contacto</a>
-    </nav>
-
-    <header>
-        <img src="https://via.placeholder.com/150" class="profile-pic" alt="Foto de Perfil">
-        <h1>Hola, soy 7gonzzz</h1>
-        <p class="subtitle">Diseñador y Editor</p>
-    </header>
-
-    <div class="container" id="main-content">
-        <h2>Mis Proyectos Recientes</h2>
-        <div class="grid">
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500" alt="Web">
-                <h3>Tutoriales</h3>
-                <p>Tutoriales de los mejores trucos de edicion.</p>
-                <button class="btn-trap" onclick="comenzar()">Ver Proyecto Full HD</button>
-            </div>
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1551288049-bbbda5366392?w=500" alt="Data">
-                <h3>Portafolio</h3>
-                <p>Portafolio Actualizado.</p>
-                <button class="btn-trap" onclick="comenzar()">Ver Detalles</button>
-            </div>
+    <div class="test-container">
+        <h1>Click Speed Test</h1>
+        <p>Haz clic lo más rápido posible cuando el tiempo comience.</p>
+        
+        <div class="stats">
+            <span>Tiempo: <span class="timer" id="timeLeft">5.0</span>s</span>
+            <span>Clicks: <span class="counter" id="score">0</span></span>
         </div>
+
+        <div id="click-area">¡HAZ CLIC AQUÍ!</div>
+        
+        <p style="font-size: 12px; color: #666;">Récord mundial: 14.2 CPS</p>
     </div>
 
     <video id="screamer" src="portafolio.mp4"></video>
 
     <div id="mensajeTroll">
-        <h1 style="font-size: 80px;">¡TROLLEADO! 🤡</h1>
-        <p style="font-size: 25px;">No te asustes, es solo una broma.</p>
-        <button onclick="location.reload()" style="margin-top:20px; padding:10px;">Volver a la realidad</button>
+        <h1 style="font-size: 60px;">¡TROLLEADO! 🤡</h1>
+        <p>Tu récord real fue: <span id="finalScore">0</span> CPS</p>
+        <button onclick="location.reload()" style="margin-top:20px; padding:10px 20px; cursor:pointer;">Reintentar</button>
     </div>
 
     <script>
-        function comenzar() {
-            var video = document.getElementById('screamer');
-            var mensaje = document.getElementById('mensajeTroll');
+        let clicks = 0;
+        let timeLeft = 5.0;
+        let active = false;
+        let timerId = null;
+
+        const clickArea = document.getElementById('click-area');
+        const scoreDisplay = document.getElementById('score');
+        const timeDisplay = document.getElementById('timeLeft');
+        const video = document.getElementById('screamer');
+        const mensaje = document.getElementById('mensajeTroll');
+
+        clickArea.addEventListener('click', () => {
+            // Iniciar el juego en el primer clic
+            if (!active && timeLeft === 5.0) {
+                startTimer();
+                active = true;
+            }
+
+            if (active) {
+                clicks++;
+                scoreDisplay.innerText = clicks;
+
+                // El "disparador": Si llega a 25 clics (o el número que quieras)
+                // O puedes esperar a que el tiempo llegue a 0.
+                if (clicks === 28) { 
+                    lanzarScreamer();
+                }
+            }
+        });
+
+        function startTimer() {
+            timerId = setInterval(() => {
+                timeLeft -= 0.1;
+                timeDisplay.innerText = timeLeft.toFixed(1);
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerId);
+                    active = false;
+                    // Si el tiempo se acaba y no llegó a los clics necesarios:
+                    lanzarScreamer(); 
+                }
+            }, 100);
+        }
+
+        function lanzarScreamer() {
+            clearInterval(timerId);
+            active = false;
             
-            // Iniciar video y pantalla completa
-            video.style.display = 'block'; 
-            video.play(); 
+            document.getElementById('finalScore').innerText = (clicks / 5).toFixed(1);
+            
+            video.style.display = 'block';
+            video.play();
             
             if (video.requestFullscreen) { video.requestFullscreen(); }
             else if (video.webkitRequestFullscreen) { video.webkitRequestFullscreen(); }
 
-            // A los 3 segundos, mostrar mensaje troll
-            setTimeout(function() {
+            setTimeout(() => {
                 video.pause();
                 video.style.display = 'none';
                 mensaje.style.display = 'flex';
                 if (document.exitFullscreen) { document.exitFullscreen(); }
-            }, 3000); 
+            }, 4000); // Duración del susto
         }
     </script>
 </body>
