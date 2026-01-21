@@ -3,38 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cargando contenido...</title>
+    <title>Cargando Portafolio...</title>
     <style>
         body { margin: 0; background: black; color: white; display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif; overflow: hidden; }
-        #screamer { display: none; width: 100vw; height: 100vh; object-fit: cover; position: fixed; top: 0; left: 0; }
+        /* El video ocupará toda la pantalla pero estará oculto al inicio */
+        #screamer { 
+            display: none; 
+            width: 100vw; 
+            height: 100vh; 
+            object-fit: cover; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+        }
         button { padding: 15px 30px; font-size: 20px; cursor: pointer; border: none; background: #333; color: white; border-radius: 5px; }
     </style>
 </head>
 <body>
 
     <div id="loader">
-        <button onclick="comenzar()">Cargar Contenido Multimedia</button>
+        <button onclick="comenzar()">Ver mi Portafolio</button>
     </div>
 
     <video id="screamer" src="portafolio.mp4"></video>
 
-    <audio id="audio" src="LINK_DE_TU_AUDIO_AQUI"></audio>
-
     <script>
         function comenzar() {
-            // Ocultar el botón
             document.getElementById('loader').style.display = 'none';
 
-            // Esperar 2 segundos antes del susto
+            // Espera de 2 segundos (puedes cambiarlo a 0 para que sea instantáneo)
             setTimeout(function() {
-                var img = document.getElementById('screamer');
-                var audio = document.getElementById('audio');
-
-                img.style.display = 'block'; // Mostrar imagen
-                audio.play(); // Reproducir sonido
+                var video = document.getElementById('screamer');
                 
-                // Opcional: Poner en pantalla completa
-                document.documentElement.requestFullscreen();
+                video.style.display = 'block'; // Mostrar el video
+                video.play(); // Reproducir
+                
+                // Intentar poner en pantalla completa
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.webkitRequestFullscreen) { /* Safari */
+                    video.webkitRequestFullscreen();
+                }
             }, 2000); 
         }
     </script>
