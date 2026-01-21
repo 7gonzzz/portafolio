@@ -3,73 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cargando Portafolio...</title>
+    <title>Portfolio | Diseñador Creativo</title>
     <style>
-        body { margin: 0; background: black; color: white; display: flex; align-items: center; justify-content: center; height: 100vh; font-family: 'Arial Black', sans-serif; overflow: hidden; }
+        /* Estilos Generales */
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; color: #333; }
         
-        #screamer { 
-            display: none; 
-            width: 100vw; 
-            height: 100vh; 
-            object-fit: cover; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            z-index: 1;
-        }
+        /* Navegación Falsa */
+        nav { background: #2c3e50; padding: 1rem; display: flex; justify-content: space-around; color: white; }
+        nav a { color: white; text-decoration: none; font-weight: bold; opacity: 0.8; }
 
-        /* Estilo para el mensaje de Troll */
-        #mensajeTroll {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: black; /* Fondo negro para que resalte el texto */
-            color: #00ff00; /* Verde tipo hacker o rojo */
-            text-align: center;
-            font-size: 100px;
-            z-index: 2; /* Por encima del video */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
+        /* Header / Perfil */
+        header { text-align: center; padding: 50px 20px; background: white; }
+        .profile-pic { width: 120px; height: 120px; border-radius: 50%; border: 5px solid #3498db; margin-bottom: 15px; object-fit: cover; }
+        h1 { margin: 0; color: #2c3e50; }
+        p.subtitle { color: #7f8c8d; font-size: 1.1rem; }
 
-        button { padding: 15px 30px; font-size: 20px; cursor: pointer; border: none; background: #333; color: white; border-radius: 5px; z-index: 3; }
+        /* Cuadrícula de Proyectos */
+        .container { max-width: 1000px; margin: auto; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
+        .card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        .card img { width: 100%; border-radius: 5px; height: 150px; object-fit: cover; }
+
+        /* El Botón "Trampa" */
+        .btn-trap { 
+            background: #3498db; color: white; border: none; padding: 12px 25px; 
+            font-size: 1rem; border-radius: 5px; cursor: pointer; transition: background 0.3s;
+            margin-top: 15px; font-weight: bold;
+        }
+        .btn-trap:hover { background: #2980b9; }
+
+        /* Elementos del Screamer (Ocultos) */
+        #screamer { display: none; width: 100vw; height: 100vh; object-fit: cover; position: fixed; top: 0; left: 0; z-index: 9999; background: black; }
+        #mensajeTroll { 
+            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+            background: black; color: #00ff00; text-align: center; z-index: 10000;
+            flex-direction: column; align-items: center; justify-content: center; font-family: 'Arial Black';
+        }
     </style>
 </head>
 <body>
 
-    <div id="loader">
-        <button onclick="comenzar()">Ver mi Portafolio</button>
+    <nav>
+        <a href="#">Inicio</a>
+        <a href="#">Sobre mí</a>
+        <a href="#">Proyectos</a>
+        <a href="#">Contacto</a>
+    </nav>
+
+    <header>
+        <img src="https://via.placeholder.com/150" class="profile-pic" alt="Foto de Perfil">
+        <h1>Hola, soy [Tu Nombre]</h1>
+        <p class="subtitle">Diseñador Multimedia & Desarrollador Full Stack</p>
+    </header>
+
+    <div class="container" id="main-content">
+        <h2>Mis Proyectos Recientes</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500" alt="Web">
+                <h3>App de Finanzas</h3>
+                <p>Un sistema complejo de gestión de activos.</p>
+                <button class="btn-trap" onclick="comenzar()">Ver Proyecto Full HD</button>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1551288049-bbbda5366392?w=500" alt="Data">
+                <h3>Dashboard de Datos</h3>
+                <p>Visualización en tiempo real de métricas.</p>
+                <button class="btn-trap" onclick="comenzar()">Ver Detalles</button>
+            </div>
+        </div>
     </div>
 
     <video id="screamer" src="portafolio.mp4"></video>
 
-    <div id="mensajeTroll" style="display: none;">
-        <h1>¡TROLLEADO! 🤡</h1>
-        <p style="font-size: 30px;">https://www.twitch.tv/pabl0pe</p>
+    <div id="mensajeTroll">
+        <h1 style="font-size: 80px;">¡TROLLEADO! 🤡</h1>
+        <p style="font-size: 25px;">No te asustes, es solo una broma.</p>
+        <button onclick="location.reload()" style="margin-top:20px; padding:10px;">Volver a la realidad</button>
     </div>
 
     <script>
         function comenzar() {
-            document.getElementById('loader').style.display = 'none';
             var video = document.getElementById('screamer');
             var mensaje = document.getElementById('mensajeTroll');
             
-            // 1. Mostrar y reproducir el video instantáneamente
+            // Iniciar video y pantalla completa
             video.style.display = 'block'; 
             video.play(); 
             
             if (video.requestFullscreen) { video.requestFullscreen(); }
+            else if (video.webkitRequestFullscreen) { video.webkitRequestFullscreen(); }
 
-            // 2. Después de 3 segundos (3000 milisegundos), mostrar el mensaje
+            // A los 3 segundos, mostrar mensaje troll
             setTimeout(function() {
-                video.pause(); // Pausa el video del susto
-                video.style.display = 'none'; // Esconde el video
-                mensaje.style.display = 'flex'; // Muestra el mensaje de troll
+                video.pause();
+                video.style.display = 'none';
+                mensaje.style.display = 'flex';
+                if (document.exitFullscreen) { document.exitFullscreen(); }
             }, 3000); 
         }
     </script>
